@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword   # rootパスワードを設定
+      MYSQL_DATABASE: mydb               # データベース名を設定
+      MYSQL_USER: user                   # ユーザー名を設定
+      MYSQL_PASSWORD: userpassword       # ユーザー用のパスワードを設定
+    ports:
+      - "3307:3306"                       # ローカルの3307ポートにマッピング
+    volumes:
+      - mysql-data:/var/lib/mysql         # データ永続化のためボリュームを設定
+    networks:
+      - mysql-network
+
+volumes:
+  mysql-data:
+
+networks:
+  mysql-network:
+    driver: bridge
